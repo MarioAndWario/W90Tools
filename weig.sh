@@ -48,7 +48,12 @@ read VBMindex
 
 #PlotRangeRight
 PlotRangeRight=$(tail -n 1 $KptFile | awk '{print $1}')
-sed -n '7p' ${Prefix}_band.gnu | awk -F "\"  " '{for(i=2; i<=NF; i++){printf("%7.5f\n",$i)}}' > helper3.dat
+
+grep "set xtics" ${Prefix}_band.gnu | grep -o '[0-9]\.[0-9]\{5\}' | awk 'BEGIN { ORS = "  " } {print} ' > helper3.dat
+
+echo -e " " >> helper3.dat
+
+#sed -n '7p' ${Prefix}_band.gnu | awk -F "\"  " '{for(i=2; i<=NF; i++){printf("%7.5f\n",$i)}}' > helper3.dat
 
 echo ${VBMindex} >> helper4.dat
 echo ${NumofKpoints} >> helper4.dat
